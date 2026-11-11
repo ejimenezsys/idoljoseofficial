@@ -171,6 +171,28 @@ const TIMELINE_DATA = [
    -------------------------------------------------------------------------- */
 const DEFAULT_GALLERY_ITEMS = [
   {
+    id: "ed-dfwm-14",
+    title: "14.ª Edición Doral Fashion Week Magazine — Gala & Desfile Oficial",
+    category: "press",
+    categoryLabel: "Prensa & Revista Oficial",
+    season: "Century Midtown · Doral, FL (30 Oct 2026)",
+    photographer: "Doral Fashion Week Magazine (@idol_jose)",
+    image: "assets/dfwm-edicion-14.jpg",
+    description: "Gala y pasarela oficial de la 14.ª Edición de Doral Fashion Week Magazine con portada de Sthefany Gutiérrez y colecciones de Idol José, Juan de la Cruz y Manny."
+  },
+  {
+    id: "ed-prosperia-dfwm",
+    title: "Editorial DFWM (Págs. 194–197): 'La IA le devuelve el tiempo para ser creativa'",
+    category: "press",
+    categoryLabel: "Alianza Tecnológica & IA",
+    season: "Doral Fashion Week Magazine · Edward Jiménez (Agencia Prosper IA)",
+    photographer: "DFWM Editorial Feature · Miami",
+    image: "assets/dfwm-edward-spread.png",
+    pdfUrl: "assets/editorial-edward-jimenez-dfwm.pdf",
+    videoUrl: "assets/dfwm-edward-jimenez-video.mp4",
+    description: "Reportaje central de 4 páginas en Doral Fashion Week Magazine con Edward Jiménez, fundador de Agencia Prosper IA y socio tecnológico del ecosistema IDOL JOSE GROUP."
+  },
+  {
     id: "ed-1",
     title: "Silueta Imperial en Seda Obsidiana",
     category: "runway",
@@ -355,7 +377,7 @@ const DEFAULT_PRODUCTS = [
 const state = {
   selectedYear: "2026",
   galleryFilter: "all",
-  gallery: JSON.parse(localStorage.getItem("idoljose_gallery")) || DEFAULT_GALLERY_ITEMS,
+  gallery: JSON.parse(localStorage.getItem("idoljose_gallery_v2")) || DEFAULT_GALLERY_ITEMS,
   events: JSON.parse(localStorage.getItem("idoljose_events")) || DEFAULT_EVENTS,
   products: JSON.parse(localStorage.getItem("idoljose_products")) || DEFAULT_PRODUCTS,
   cart: JSON.parse(localStorage.getItem("idoljose_cart")) || [],
@@ -369,7 +391,7 @@ const state = {
 };
 
 function saveState() {
-  localStorage.setItem("idoljose_gallery", JSON.stringify(state.gallery));
+  localStorage.setItem("idoljose_gallery_v2", JSON.stringify(state.gallery));
   localStorage.setItem("idoljose_events", JSON.stringify(state.events));
   localStorage.setItem("idoljose_products", JSON.stringify(state.products));
   localStorage.setItem("idoljose_cart", JSON.stringify(state.cart));
@@ -532,6 +554,11 @@ window.openLightbox = function (itemId) {
   const content = document.getElementById("lightboxDialogContent");
   if (!item || !dialog || !content) return;
 
+  const extraLinks = `
+    ${item.pdfUrl ? `<a href="${item.pdfUrl}" target="_blank" rel="noopener" class="btn-luxury-primary" style="margin-bottom:0.65rem;">📄 Leer Artículo Completo (PDF 4 Páginas)</a>` : ""}
+    ${item.videoUrl ? `<a href="${item.videoUrl}" target="_blank" rel="noopener" class="btn-luxury-outline" style="margin-bottom:0.65rem;">🎬 Ver Video Revista Impresa DFWM</a>` : ""}
+  `;
+
   content.innerHTML = `
     <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: center;">
       <div style="background:#000; border:1px solid var(--border-subtle); max-height:72vh; overflow:hidden; display:grid; place-items:center;">
@@ -543,12 +570,15 @@ window.openLightbox = function (itemId) {
         <p style="color:var(--accent-gold); font-size:0.84rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:1.25rem;">
           ${item.season} · ${item.photographer}
         </p>
-        <p style="color:var(--text-secondary); margin-bottom:2rem; line-height:1.75;">
+        <p style="color:var(--text-secondary); margin-bottom:1.5rem; line-height:1.75;">
           ${item.description}
         </p>
-        <button type="button" class="btn-luxury-outline" onclick="document.getElementById('lightboxDialog').close()">
-          Cerrar Vista Pantalla Completa
-        </button>
+        <div style="display:flex; flex-direction:column; gap:0.5rem;">
+          ${extraLinks}
+          <button type="button" class="btn-luxury-outline" onclick="document.getElementById('lightboxDialog').close()">
+            Cerrar Vista Pantalla Completa
+          </button>
+        </div>
       </div>
     </div>
   `;
@@ -1204,3 +1234,4 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCartBadge();
   setupDialogLightDismissFallbacks();
 });
+
