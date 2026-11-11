@@ -4,8 +4,8 @@
 
 const IDOL_JOSE_CONFIG = {
   brandName: "IDOL JOSE GROUP",
-  instagramHandle: "@idoljoseofficial",
-  whatsappConcierge: "13055550199", // Configurable para Atención VIP / Atelier
+  instagramHandle: "@doralfashionweekoficial",
+  whatsappConcierge: "17866475982", // WhatsApp Oficial IDOL JOSE: +1 (786) 647-5982
   stripeCheckoutWebhook: "", // URL opcional de Stripe Payment Link / API
   instagramAutomationWebhook: "" // URL de Make / Zapier / n8n para auto-post en Instagram
 };
@@ -401,7 +401,11 @@ window.submitOfficialLead = function (event) {
   leads.unshift(lead);
   localStorage.setItem("idoljose_crm_leads", JSON.stringify(leads));
   form.reset();
-  showToast("✓ Registro recibido. Te contactaremos por WhatsApp en breve.");
+  showToast("✓ Registro guardado. Conectando con el Atelier por WhatsApp...");
+  const waText = encodeURIComponent(
+    `Hola IDOL JOSE, acabo de registrarme en idoljoseofficial.com:\n\n• Nombre/Marca: ${lead.fullName}\n• Teléfono: ${lead.phone}\n• Email: ${lead.email}\n• Motivo: ${lead.reason}\n• Detalles: ${lead.notes || "Solicitud de información"}`
+  );
+  window.open(`https://wa.me/${IDOL_JOSE_CONFIG.whatsappConcierge}?text=${waText}`, "_blank");
 };
 
 /* --------------------------------------------------------------------------
