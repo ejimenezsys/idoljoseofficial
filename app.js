@@ -172,25 +172,13 @@ const TIMELINE_DATA = [
 const DEFAULT_GALLERY_ITEMS = [
   {
     id: "ed-dfwm-14",
-    title: "14.ª Edición Doral Fashion Week Magazine — Gala & Desfile Oficial",
+    title: "Doral Fashion Week Magazine — Portada Oficial Sthefany Gutiérrez",
     category: "press",
     categoryLabel: "Prensa & Revista Oficial",
-    season: "Century Midtown · Doral, FL (30 Oct 2026)",
-    photographer: "Doral Fashion Week Magazine (@idol_jose)",
-    image: "assets/dfwm-edicion-14.jpg",
-    description: "Gala y pasarela oficial de la 14.ª Edición de Doral Fashion Week Magazine con portada de Sthefany Gutiérrez y colecciones de Idol José, Juan de la Cruz y Manny."
-  },
-  {
-    id: "ed-prosperia-dfwm",
-    title: "Editorial DFWM (Págs. 194–197): 'La IA le devuelve el tiempo para ser creativa'",
-    category: "press",
-    categoryLabel: "Alianza Tecnológica & IA",
-    season: "Doral Fashion Week Magazine · Edward Jiménez (Agencia Prosper IA)",
-    photographer: "DFWM Editorial Feature · Miami",
-    image: "assets/dfwm-edward-spread.png",
-    pdfUrl: "assets/editorial-edward-jimenez-dfwm.pdf",
-    videoUrl: "assets/dfwm-edward-jimenez-video.mp4",
-    description: "Reportaje central de 4 páginas en Doral Fashion Week Magazine con Edward Jiménez, fundador de Agencia Prosper IA y socio tecnológico del ecosistema IDOL JOSE GROUP."
+    season: "Gran Lanzamiento Oficial · Doral, FL",
+    photographer: "Doral Fashion Week Magazine (@doralfwmagazine)",
+    image: "assets/dfwm-portada-sthefany.jpg",
+    description: "Gala y pasarela oficial de Doral Fashion Week Magazine con portada de Sthefany Gutiérrez, rueda de prensa y desfiles exclusivos en Doral, Florida."
   },
   {
     id: "ed-1",
@@ -377,7 +365,7 @@ const DEFAULT_PRODUCTS = [
 const state = {
   selectedYear: "2026",
   galleryFilter: "all",
-  gallery: JSON.parse(localStorage.getItem("idoljose_gallery_v2")) || DEFAULT_GALLERY_ITEMS,
+  gallery: JSON.parse(localStorage.getItem("idoljose_gallery_v3")) || DEFAULT_GALLERY_ITEMS,
   events: JSON.parse(localStorage.getItem("idoljose_events")) || DEFAULT_EVENTS,
   products: JSON.parse(localStorage.getItem("idoljose_products")) || DEFAULT_PRODUCTS,
   cart: JSON.parse(localStorage.getItem("idoljose_cart")) || [],
@@ -391,11 +379,30 @@ const state = {
 };
 
 function saveState() {
-  localStorage.setItem("idoljose_gallery_v2", JSON.stringify(state.gallery));
+  localStorage.setItem("idoljose_gallery_v3", JSON.stringify(state.gallery));
   localStorage.setItem("idoljose_events", JSON.stringify(state.events));
   localStorage.setItem("idoljose_products", JSON.stringify(state.products));
   localStorage.setItem("idoljose_cart", JSON.stringify(state.cart));
 }
+
+window.submitOfficialLead = function (event) {
+  event.preventDefault();
+  const form = event.target;
+  const lead = {
+    source: "idoljoseofficial.com",
+    fullName: form.fullName.value.trim(),
+    phone: form.phone.value.trim(),
+    email: form.email.value.trim(),
+    reason: form.reason.value,
+    notes: form.notes.value.trim(),
+    createdAt: new Date().toISOString()
+  };
+  const leads = JSON.parse(localStorage.getItem("idoljose_crm_leads") || "[]");
+  leads.unshift(lead);
+  localStorage.setItem("idoljose_crm_leads", JSON.stringify(leads));
+  form.reset();
+  showToast("✓ Registro recibido. Te contactaremos por WhatsApp en breve.");
+};
 
 /* --------------------------------------------------------------------------
    FALLBACK FOR <dialog closedby="any"> IN SAFARI (Modern Web Guidance)
