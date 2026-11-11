@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://idoljoseofficial.com/sitemap.xml
