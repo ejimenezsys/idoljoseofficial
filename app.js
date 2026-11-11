@@ -614,9 +614,9 @@ function renderEvents() {
           <button type="button" class="btn-luxury-primary" style="justify-content:center;" onclick="openEventRsvp('${ev.id}')">
             Boletos / RSVP VIP
           </button>
-          <button type="button" class="btn-luxury-outline" style="justify-content:center; font-size:0.7rem; padding:0.65rem 1rem;" onclick="generateInstagramAnnouncement('${ev.id}')">
-            ⚡ Difundir en Instagram
-          </button>
+          <a href="https://www.instagram.com/doralfashionweekoficial/" target="_blank" rel="noopener" class="btn-luxury-outline" style="justify-content:center; font-size:0.7rem; padding:0.65rem 1rem;">
+            Ver en Instagram Oficial ↗
+          </a>
         </div>
       </article>
     `
@@ -1233,5 +1233,12 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCatalog();
   updateCartBadge();
   setupDialogLightDismissFallbacks();
+
+  // Atajo privado exclusivo para Edward (Shift + Alt + A) para abrir el CMS Studio oculto
+  document.addEventListener("keydown", (e) => {
+    if (e.shiftKey && e.altKey && (e.key === "A" || e.key === "a")) {
+      window.openCmsModal();
+    }
+  });
 });
 
