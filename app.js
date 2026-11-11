@@ -571,9 +571,9 @@ window.openLightbox = function (itemId) {
   `;
 
   content.innerHTML = `
-    <div style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: center;">
-      <div style="background:#000; border:1px solid var(--border-subtle); max-height:72vh; overflow:hidden; display:grid; place-items:center;">
-        <img src="${item.image}" alt="${item.title}" style="max-height:72vh; width:auto; object-fit:contain;" />
+    <div class="modal-split-grid">
+      <div style="background:#000; border:1px solid var(--border-subtle); max-height:72dvh; overflow:hidden; display:grid; place-items:center;">
+        <img src="${item.image}" alt="${item.title}" style="max-height:72dvh; width:auto; object-fit:contain;" />
       </div>
       <div>
         <span class="section-eyebrow">${item.categoryLabel}</span>
@@ -680,7 +680,7 @@ window.generateInstagramAnnouncement = async function (eventId) {
   const body = document.getElementById("igAnnouncementDialogBody");
   if (dialog && body) {
     body.innerHTML = `
-      <div style="display:grid; grid-template-columns: 0.9fr 1.1fr; gap: 2rem; align-items: start;">
+      <div class="modal-split-grid">
         <div style="background:#070708; border:1px solid var(--accent-gold); padding:2.25rem; aspect-ratio:4/5; display:flex; flex-direction:column; justify-content:space-between; text-align:center;">
           <span style="font-size:0.68rem; letter-spacing:0.25em; color:var(--accent-gold); text-transform:uppercase;">
             IDOL JOSE GROUP · OFFICIAL NOTICE
@@ -797,7 +797,7 @@ window.openProductDetailModal = function (productId) {
   const selectedSize = state.selectedSizes[prod.id] || prod.defaultSize;
 
   body.innerHTML = `
-    <div style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.25rem;">
+    <div class="modal-split-grid">
       <div>
         <div id="prodMainMediaStage" style="aspect-ratio:3/4; background:#000; border:1px solid var(--border-subtle); overflow:hidden; margin-bottom:0.85rem;">
           <img src="${prod.images[0]}" alt="${prod.name}" style="width:100%; height:100%; object-fit:cover;" />
